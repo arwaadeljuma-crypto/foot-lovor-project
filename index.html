@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Lover Restaurant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. Header -->
+  <header>
+    <h2>🍔 Food Lover</h2>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 2. Hero + Slider -->
+  <section id="home" class="hero">
+    <h1>Welcome to Food Lover</h1>
+    <p>Fresh and delicious food, you will love it from the first bite</p>
+
+    <div class="slider">
+      <button onclick="prevSlide()">◀</button>
+      <img id="sliderImg" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600">
+      <button onclick="nextSlide()">▶</button>
+    </div>
+    <br>
+    <a href="#menu"><button class="main-btn">See The Menu</button></a>
+  </section>
+
+  <!-- 3. About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Food Lover Restaurant serves fresh and varied meals for the whole family. Our goal is to make you enjoy delicious food in a comfortable place, and try something new every time you visit us.</p>
+  </section>
+
+  <!-- 4. Menu - From JavaScript -->
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div id="menu-container" class="flex"></div>
+  </section>
+
+  <!-- 5. Gallery -->
+  <section id="gallery">
+    <h2>Food Gallery</h2>
+    <div class="flex">
+      <div class="card"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400"><h3>Pizza</h3></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400"><h3>Burger</h3></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"><h3>Pasta</h3></div>
+    </div>
+  </section>
+
+  <!-- 6. Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="return checkForm()">
+      <input type="text" id="name" placeholder="Your Name">
+      <input type="email" id="email" placeholder="Your Email">
+      <textarea id="msg" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+      <p id="formMsg"></p>
+    </form>
+  </section>
+
+  <!-- 7. Footer -->
+  <footer>
+    <p>Food Lover Restaurant | Made by: Arwa</p>
+  </footer>
+
+<script>
+  // Slider
+  let slides = [
+    "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600",
+    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600",
+    "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600"
+  ];
+  let current = 0;
+  function showSlide() { document.getElementById("sliderImg").src = slides[current]; }
+  function nextSlide() { current = (current + 1) % slides.length; showSlide(); }
+  function prevSlide() { current = (current - 1 + slides.length) % slides.length; showSlide(); }
+
+  // Menu from JavaScript Array
+  let foods = [
+    {name:"Pizza", img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400", desc:"Fresh dough with tomato sauce and cheese"},
+    {name:"Burger", img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400", desc:"Fresh meat, vegetables and special sauce"},
+    {name:"Fries", img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400", desc:"Crispy and golden fries"},
+    {name:"Shawarma", img:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400", desc:"Fresh shawarma in soft bread"},
+    {name:"Juice", img:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400", desc:"Natural fresh fruit juice"},
+    {name:"Pasta", img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400", desc:"Pasta with delicious sauce"}
+  ];
+  let container = document.getElementById("menu-container");
+  foods.forEach(f => {
+    container.innerHTML += `<div class="card"><img src="${f.img}"><h3>${f.name}</h3><p>${f.desc}</p><button onclick="alert('You selected ${f.name}')">Order Now</button></div>`;
+  });
+
+  // Contact Validation
+  function checkForm() {
+    let n = document.getElementById("name").value;
+    let e = document.getElementById("email").value;
+    let m = document.getElementById("msg").value;
+    let msg = document.getElementById("formMsg");
+    if (n == "" || e == "" || m == "") {
+      msg.textContent = "Please fill in all fields!";
+      msg.style.color = "red";
+      return false;
+    }
+    msg.textContent = "Thank you " + n + "! Your message was sent successfully.";
+    msg.style.color = "green";
+    return false;
+  }
+</script>
+</body>
+</html>
